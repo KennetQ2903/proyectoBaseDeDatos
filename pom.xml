@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1/com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.HelloApplication
+                                com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1/com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Application
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

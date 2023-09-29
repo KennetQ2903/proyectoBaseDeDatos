@@ -7,4 +7,6 @@ module com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos {
 
     opens com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1 to javafx.fxml;
     exports com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1;
+    exports com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers;
+    opens com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers to javafx.fxml;
 }
