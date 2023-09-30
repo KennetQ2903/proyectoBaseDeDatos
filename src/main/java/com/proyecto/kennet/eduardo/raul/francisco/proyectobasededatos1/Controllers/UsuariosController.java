@@ -14,7 +14,7 @@ public class UsuariosController {
         try {
             Connection connection = DB.getConnection();
             String query = "SELECT * FROM DEPARTAMENTO";
-            //ASEGURATE DE NO ESTAR LOGUEADO EN SQL DEVELOPER, SI NO, NO TRAERA NADA DE INFORMACION
+            //ASEGURATE DE NO ESTAR LOGUEADO EN SQL DEVELOPER, SI NO, NO TRAERA NADA DE INFORMACION YA QUE BLOQUEA LA QUERY
             ResultSet result = DB.ExecuteQuery(connection, query);
             if (result != null) {
                 while (result.next()) {
