@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.AppController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="837.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.AppController">
     <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-padding: 10;">
         <buttons>
             <Button mnemonicParsing="false" onAction="#navigateToFacturacion" text="Facturación" />
@@ -20,5 +20,5 @@
             <Insets />
         </opaqueInsets>
     </ButtonBar>
-   <AnchorPane fx:id="scenesContainer" nodeOrientation="RIGHT_TO_LEFT" prefHeight="793.0" prefWidth="1162.0" />
+   <AnchorPane fx:id="scenesContainer" nodeOrientation="LEFT_TO_RIGHT" prefHeight="837.0" prefWidth="1162.0" />
 </VBox>

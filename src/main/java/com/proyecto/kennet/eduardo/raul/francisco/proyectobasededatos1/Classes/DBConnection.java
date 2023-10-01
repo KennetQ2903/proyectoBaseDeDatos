@@ -26,24 +26,4 @@ public class DBConnection {
         }
         return null;
     }
-
-    public ResultSet ExecuteQuery(Connection connection , String query) {
-        try {
-            // si no fue posible conectar con la base de datos se valida aca y hacemos un return seguro
-            if (connection == null) {
-                return null;
-            }
-            // Prepara la consulta
-            Statement statement = connection.createStatement();
-            // Ejecuta la consulta
-            return statement.executeQuery(query);
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error al tratar de ejecutar una consulta");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-        return null;
-    }
 }
