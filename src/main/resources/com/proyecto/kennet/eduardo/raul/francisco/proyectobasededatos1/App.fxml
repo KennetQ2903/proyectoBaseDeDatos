@@ -9,12 +9,14 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="837.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.AppController">
     <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-padding: 10;">
         <buttons>
-            <Button mnemonicParsing="false" onAction="#navigateToFacturacion" text="Facturación" />
-            <Button mnemonicParsing="false" onAction="#navigateToEstablecimientos" text="Establecimientos" />
             <Button mnemonicParsing="false" onAction="#navigateToUsuarios" text="Usuarios" />
-            <Button mnemonicParsing="false" onAction="#navigateToProductos" text="Productos" />
             <Button mnemonicParsing="false" onAction="#navigateToProveedores" text="Proveedores" />
+            <Button mnemonicParsing="false" onAction="#navigateToProductos" text="Productos" />
             <Button mnemonicParsing="false" onAction="#navigateToClientes" text="Clientes" />
+            <Button mnemonicParsing="false" onAction="#navigateToVendedores" text="Vendedores" />
+            <Button mnemonicParsing="false" onAction="#navigateToEmpresas" text="Empresas" />
+            <Button mnemonicParsing="false" onAction="#navigateToColaboradores" text="Colaboradores" />
+            <Button mnemonicParsing="false" onAction="#navigateToBodegas" text="Bodegas" />
         </buttons>
         <opaqueInsets>
             <Insets />

@@ -64,30 +64,30 @@ public class AppController {
     }
 
     @FXML
-    private void navigateToEstablecimientos() {
+    private void navigateToEmpresas() {
         try {
-            AnchorPane scene = getScene("Establecimientos");
+            AnchorPane scene = getScene("Empresas");
             scenesContainer.getChildren().setAll(scene);
         } catch (Exception e) {
-            // Manejo de errores si no se puede cargar "Establecimientos.fxml"
+            // Manejo de errores si no se puede cargar "Empresas.fxml"
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Error al cargar la vista de Establecimientos");
+            alert.setHeaderText("Error al cargar la vista de Empresas");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
     }
 
     @FXML
-    private void navigateToFacturacion() {
+    private void navigateToVendedores() {
         try {
-            AnchorPane scene = getScene("Facturacion");
+            AnchorPane scene = getScene("Vendedores");
             scenesContainer.getChildren().setAll(scene);
         } catch (Exception e) {
-            // Manejo de errores si no se puede cargar "Facturacion.fxml"
+            // Manejo de errores si no se puede cargar "Vendedores.fxml"
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Error al cargar la vista de Facturacion");
+            alert.setHeaderText("Error al cargar la vista de Vendedores");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
@@ -103,6 +103,34 @@ public class AppController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error al cargar la vista de Proveedores");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private void navigateToColaboradores() {
+        try {
+            AnchorPane scene = getScene("Colaboradores");
+            scenesContainer.getChildren().setAll(scene);
+        } catch (Exception e) {
+            // Manejo de errores si no se puede cargar "Colaboradores.fxml"
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar la vista de Colaboradores");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private void navigateToBodegas() {
+        try {
+            AnchorPane scene = getScene("Bodegas");
+            scenesContainer.getChildren().setAll(scene);
+        } catch (Exception e) {
+            // Manejo de errores si no se puede cargar "Bodegas.fxml"
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar la vista de Bodegas");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }

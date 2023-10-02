@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.EstablecimientosController"
+            fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.VendedoresController"
             prefHeight="793.0" prefWidth="1162.0">
-    <Label layoutX="560.0" layoutY="380.0" text="Establecimientos" />
+    <Label layoutX="560.0" layoutY="380.0" text="Vendedores" />
 </AnchorPane>
