@@ -44,7 +44,7 @@ public class UsuariosController implements Initializable {
         // Código para inicializar componentes o realizar acciones al cargar el FXML
         traerDepartamentos();
         setRoles();
-//        setUsuarios();
+//        setUsuarios(); //NO FUNCIONA
     }
 
     private void traerDepartamentos() {
