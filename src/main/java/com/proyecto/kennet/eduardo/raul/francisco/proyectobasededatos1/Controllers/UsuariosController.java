@@ -1,9 +1,12 @@
 package com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers;
 
 import com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -34,16 +37,16 @@ public class UsuariosController implements Initializable {
     public TextField dpi;
     public ComboBox<Rol> rol;
     public Button saveButton;
-    public TableView userTable;
+    public TableView<Usuario> userTable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Código para inicializar componentes o realizar acciones al cargar el FXML
         traerDepartamentos();
         setRoles();
+//        setUsuarios();
     }
 
-    @FXML
     private void traerDepartamentos() {
         try {
             Connection connection = DB.getConnection();
@@ -78,7 +81,7 @@ public class UsuariosController implements Initializable {
     @FXML
     private void setMunicipios() throws SQLException {
         Departamento value = departamento.getValue();
-        if(value != null){
+        if (value != null) {
             Connection connection = DB.getConnection();
             //el símbolo de interrogación indica donde reemplazaremos el valor de una variable para no concatenar
             String query = "SELECT * FROM MUNICIPIO WHERE DEPARTAMENTO = ?";
@@ -116,6 +119,64 @@ public class UsuariosController implements Initializable {
         }
     }
 
+    private void setUsuarios() {
+        TableColumn<Usuario, Integer> columnaId = new TableColumn<>("ID");
+        columnaId.setCellValueFactory(new PropertyValueFactory<>("ID_USUARIO"));
+
+        TableColumn<Usuario, String> columnaNombre = new TableColumn<>("Nombre de usuario");
+        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("NOMBRE_USUARIO"));
+
+        TableColumn<Usuario, String> columnaNIT = new TableColumn<>("NIT");
+        columnaNIT.setCellValueFactory(new PropertyValueFactory<>("NIT"));
+
+        TableColumn<Usuario, String> columnaDPI = new TableColumn<>("DPI");
+        columnaDPI.setCellValueFactory(new PropertyValueFactory<>("DPI"));
+
+        TableColumn<Usuario, Integer> columnaROL = new TableColumn<>("ROL");
+        columnaROL.setCellValueFactory(new PropertyValueFactory<>("ID_ROL"));
+
+        userTable.getColumns().addAll(columnaNombre);
+
+        try {
+            Connection connection = DB.getConnection();
+            String query = "SELECT * FROM USUARIO";
+            /* ASEGURATE DE NO ESTAR LOGUEADO EN SQL DEVELOPER, SI NO, NO TRAERA NADA DE INFORMACION YA QUE BLOQUEA LA QUERY */
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            if (result != null) {
+                ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList();
+                while (result.next()) {
+                    listaUsuarios.add(
+                            new Usuario(
+                                    result.getInt("ID_USUARIO"),
+                                    result.getString("NOMBRE_USUARIO"),
+                                    result.getString("PRIMER_NOMBRE"),
+                                    result.getString("SEGUNDO_NOMBRE"),
+                                    result.getString("PRIMER_APELLIDO"),
+                                    result.getString("SEGUNDO_APELLIDO"),
+                                    result.getString("OTROS_APELLIDOS"),
+                                    result.getString("PASSWORD"),
+                                    result.getString("CALLE"),
+                                    result.getString("COLONIA"),
+                                    result.getString("ZONA"),
+                                    result.getString("CIUDAD"),
+                                    result.getInt("MUNICIPIO"),
+                                    result.getInt("DEPARTAMENTO"),
+                                    result.getString("CODIGO_POSTAL"),
+                                    result.getString("TELEFONO"),
+                                    result.getString("NIT"),
+                                    result.getString("DPI"),
+                                    result.getInt("ID_ROL")
+                            )
+                    );
+                }
+                userTable.setItems(listaUsuarios);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Esta función válida que ningún campo para crear o editar un usuario se encuentre vació
      * si alguno esta vació retorna {@code false}, si no retorna {@code true}.
@@ -132,7 +193,7 @@ public class UsuariosController implements Initializable {
 //        boolean coloniaValue = colonia.getText().isEmpty();
 //        boolean zonaValue = zona.getText().isEmpty();
 //        boolean ciudadVal = ciudad.getText().isEmpty();
-        boolean departamentoVal = departamento.getSelectionModel().getSelectedItem()== null;
+        boolean departamentoVal = departamento.getSelectionModel().getSelectedItem() == null;
         boolean municipioVal = municipio.getSelectionModel().getSelectedItem() == null;
         boolean rolVal = rol.getSelectionModel().getSelectedItem() == null;
         boolean postalVal = postal.getText().isEmpty();
@@ -140,23 +201,27 @@ public class UsuariosController implements Initializable {
         boolean nitVal = nit.getText().isEmpty();
         boolean dpiVal = dpi.getText().isEmpty();
         return !(
-            usernameValue ||
-            firstName1Value ||
-            firstName2Value ||
-            lastName1Value ||
-            lastName2Value ||
-            passValue ||
-            departamentoVal ||
-            municipioVal ||
-            rolVal ||
-            postalVal ||
-            telefonoVal ||
-            nitVal ||
-            dpiVal
+                usernameValue ||
+                        firstName1Value ||
+                        firstName2Value ||
+                        lastName1Value ||
+                        lastName2Value ||
+                        passValue ||
+                        departamentoVal ||
+                        municipioVal ||
+                        rolVal ||
+                        postalVal ||
+                        telefonoVal ||
+                        nitVal ||
+                        dpiVal
         );
     }
 
-    private void clearAllFields(){
+    /**
+     * Esta función se utiliza para limpiar el formulario
+     * una vez guardado con exito un usuario
+     */
+    private void clearAllFields() {
         username.setText("");
         firstname1.setText("");
         firstname2.setText("");
@@ -180,9 +245,9 @@ public class UsuariosController implements Initializable {
     /**
      * Método utilizado para obtener los valores del formulario usuarios
      * para posteriormente guardarlos en base de datos
-     * */
+     */
     @FXML
-    private void handleSubmit(){
+    private void handleSubmit() {
         if (!isAllFieldsValid()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -298,10 +363,10 @@ public class UsuariosController implements Initializable {
                 ")";
         int userId = 0;
         //PONEMOS UN ID POR DEFECTO QUE SABEMOS QUE NO EXISTE, SI HEMOS SETEADO UN USUARIO OBTENDRA SU ID
-        if(usuario != null){
+        if (usuario != null) {
             userId = usuario.getID_USUARIO();
         }
-        try{
+        try {
             Connection connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, userId);
@@ -331,7 +396,7 @@ public class UsuariosController implements Initializable {
             alert.showAndWait();
             clearAllFields();
             return;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error al tratar de guardar el usuario");
