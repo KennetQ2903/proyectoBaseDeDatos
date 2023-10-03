@@ -1,198 +1,280 @@
 package com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Usuario {
-    public Usuario(int ID_USUARIO, String NOMBRE_USUARIO, String PRIMER_NOMBRE, String SEGUNDO_NOMBRE, String PRIMER_APELLIDO, String SEGUNDO_APELLIDO, String OTROS_APELLIDOS, String PASSWORD, String CALLE, String COLONIA, String ZONA, String CIUDAD, int MUNICIPIO, int DEPARTAMENTO, String CODIGO_POSTAL, String TELEFONO, String NIT, String DPI, int ID_ROL) {
-        this.ID_USUARIO = ID_USUARIO;
-        this.NOMBRE_USUARIO = NOMBRE_USUARIO;
-        this.PRIMER_NOMBRE = PRIMER_NOMBRE;
-        this.SEGUNDO_NOMBRE = SEGUNDO_NOMBRE;
-        this.PRIMER_APELLIDO = PRIMER_APELLIDO;
-        this.SEGUNDO_APELLIDO = SEGUNDO_APELLIDO;
-        this.OTROS_APELLIDOS = OTROS_APELLIDOS;
-        this.PASSWORD = PASSWORD;
-        this.CALLE = CALLE;
-        this.COLONIA = COLONIA;
-        this.ZONA = ZONA;
-        this.CIUDAD = CIUDAD;
-        this.MUNICIPIO = MUNICIPIO;
-        this.DEPARTAMENTO = DEPARTAMENTO;
-        this.CODIGO_POSTAL = CODIGO_POSTAL;
-        this.TELEFONO = TELEFONO;
-        this.NIT = NIT;
-        this.DPI = DPI;
-        this.ID_ROL = ID_ROL;
+    public Usuario(int idUsuario, String nombreUsuario, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String otrosApellidos, String password, String calle, String colonia, String zona, String ciudad, int municipio, int departamento, String codigoPostal, String telefono, String nit, String dpi, int idRol) {
+        this.idUsuario = new SimpleIntegerProperty(idUsuario);
+        this.nombreUsuario = new SimpleStringProperty(nombreUsuario);
+        this.primerNombre = new SimpleStringProperty(primerNombre);
+        this.segundoNombre = new SimpleStringProperty(segundoNombre);
+        this.primerApellido = new SimpleStringProperty(primerApellido);
+        this.segundoApellido = new SimpleStringProperty(segundoApellido);
+        this.otrosApellidos = new SimpleStringProperty(otrosApellidos);
+        this.password = new SimpleStringProperty(password);
+        this.calle = new SimpleStringProperty(calle);
+        this.colonia = new SimpleStringProperty(colonia);
+        this.zona = new SimpleStringProperty(zona);
+        this.ciudad = new SimpleStringProperty(ciudad);
+        this.municipio = new SimpleIntegerProperty(municipio);
+        this.departamento = new SimpleIntegerProperty(departamento);
+        this.codigoPostal = new SimpleStringProperty(codigoPostal);
+        this.telefono = new SimpleStringProperty(telefono);
+        this.nit = new SimpleStringProperty(nit);
+        this.dpi = new SimpleStringProperty(dpi);
+        this.idRol = new SimpleIntegerProperty(idRol);
     }
 
-    public int getID_USUARIO() {
-        return ID_USUARIO;
+    public int getIdUsuario() {
+        return idUsuario.get();
     }
 
-    public void setID_USUARIO(int ID_USUARIO) {
-        this.ID_USUARIO = ID_USUARIO;
+    public SimpleIntegerProperty idUsuarioProperty() {
+        return idUsuario;
     }
 
-
-    public String getNOMBRE_USUARIO() {
-        return NOMBRE_USUARIO;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario.set(idUsuario);
     }
 
-    public void setNOMBRE_USUARIO(String NOMBRE_USUARIO) {
-        this.NOMBRE_USUARIO = NOMBRE_USUARIO;
+    public String getNombreUsuario() {
+        return nombreUsuario.get();
     }
 
-    public String getPRIMER_NOMBRE() {
-        return PRIMER_NOMBRE;
+    public SimpleStringProperty nombreUsuarioProperty() {
+        return nombreUsuario;
     }
 
-    public void setPRIMER_NOMBRE(String PRIMER_NOMBRE) {
-        this.PRIMER_NOMBRE = PRIMER_NOMBRE;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario.set(nombreUsuario);
     }
 
-    public String getSEGUNDO_NOMBRE() {
-        return SEGUNDO_NOMBRE;
+    public String getPrimerNombre() {
+        return primerNombre.get();
     }
 
-    public void setSEGUNDO_NOMBRE(String SEGUNDO_NOMBRE) {
-        this.SEGUNDO_NOMBRE = SEGUNDO_NOMBRE;
+    public SimpleStringProperty primerNombreProperty() {
+        return primerNombre;
     }
 
-    public String getPRIMER_APELLIDO() {
-        return PRIMER_APELLIDO;
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre.set(primerNombre);
     }
 
-    public void setPRIMER_APELLIDO(String PRIMER_APELLIDO) {
-        this.PRIMER_APELLIDO = PRIMER_APELLIDO;
+    public String getSegundoNombre() {
+        return segundoNombre.get();
     }
 
-    public String getSEGUNDO_APELLIDO() {
-        return SEGUNDO_APELLIDO;
+    public SimpleStringProperty segundoNombreProperty() {
+        return segundoNombre;
     }
 
-    public void setSEGUNDO_APELLIDO(String SEGUNDO_APELLIDO) {
-        this.SEGUNDO_APELLIDO = SEGUNDO_APELLIDO;
+    public void setSegundoNombre(String segundoNombre) {
+        this.segundoNombre.set(segundoNombre);
     }
 
-    public String getOTROS_APELLIDOS() {
-        return OTROS_APELLIDOS;
+    public String getPrimerApellido() {
+        return primerApellido.get();
     }
 
-    public void setOTROS_APELLIDOS(String OTROS_APELLIDOS) {
-        this.OTROS_APELLIDOS = OTROS_APELLIDOS;
+    public SimpleStringProperty primerApellidoProperty() {
+        return primerApellido;
     }
 
-    public String getPASSWORD() {
-        return PASSWORD;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido.set(primerApellido);
     }
 
-    public void setPASSWORD(String PASSWORD) {
-        this.PASSWORD = PASSWORD;
+    public String getSegundoApellido() {
+        return segundoApellido.get();
     }
 
-    public String getCALLE() {
-        return CALLE;
+    public SimpleStringProperty segundoApellidoProperty() {
+        return segundoApellido;
     }
 
-    public void setCALLE(String CALLE) {
-        this.CALLE = CALLE;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido.set(segundoApellido);
     }
 
-    public String getCOLONIA() {
-        return COLONIA;
+    public String getOtrosApellidos() {
+        return otrosApellidos.get();
     }
 
-    public void setCOLONIA(String COLONIA) {
-        this.COLONIA = COLONIA;
+    public SimpleStringProperty otrosApellidosProperty() {
+        return otrosApellidos;
     }
 
-    public String getZONA() {
-        return ZONA;
+    public void setOtrosApellidos(String otrosApellidos) {
+        this.otrosApellidos.set(otrosApellidos);
     }
 
-    public void setZONA(String ZONA) {
-        this.ZONA = ZONA;
+    public String getPassword() {
+        return password.get();
     }
 
-    public String getCIUDAD() {
-        return CIUDAD;
+    public SimpleStringProperty passwordProperty() {
+        return password;
     }
 
-    public void setCIUDAD(String CIUDAD) {
-        this.CIUDAD = CIUDAD;
+    public void setPassword(String password) {
+        this.password.set(password);
     }
 
-    public int getMUNICIPIO() {
-        return MUNICIPIO;
+    public String getCalle() {
+        return calle.get();
     }
 
-    public void setMUNICIPIO(int MUNICIPIO) {
-        this.MUNICIPIO = MUNICIPIO;
+    public SimpleStringProperty calleProperty() {
+        return calle;
     }
 
-    public int getDEPARTAMENTO() {
-        return DEPARTAMENTO;
+    public void setCalle(String calle) {
+        this.calle.set(calle);
     }
 
-    public void setDEPARTAMENTO(int DEPARTAMENTO) {
-        this.DEPARTAMENTO = DEPARTAMENTO;
+    public String getColonia() {
+        return colonia.get();
     }
 
-    public String getCODIGO_POSTAL() {
-        return CODIGO_POSTAL;
+    public SimpleStringProperty coloniaProperty() {
+        return colonia;
     }
 
-    public void setCODIGO_POSTAL(String CODIGO_POSTAL) {
-        this.CODIGO_POSTAL = CODIGO_POSTAL;
+    public void setColonia(String colonia) {
+        this.colonia.set(colonia);
     }
 
-    public String getTELEFONO() {
-        return TELEFONO;
+    public String getZona() {
+        return zona.get();
     }
 
-    public void setTELEFONO(String TELEFONO) {
-        this.TELEFONO = TELEFONO;
+    public SimpleStringProperty zonaProperty() {
+        return zona;
     }
 
-    public String getNIT() {
-        return NIT;
+    public void setZona(String zona) {
+        this.zona.set(zona);
     }
 
-    public void setNIT(String NIT) {
-        this.NIT = NIT;
+    public String getCiudad() {
+        return ciudad.get();
     }
 
-    public String getDPI() {
-        return DPI;
+    public SimpleStringProperty ciudadProperty() {
+        return ciudad;
     }
 
-    public void setDPI(String DPI) {
-        this.DPI = DPI;
+    public void setCiudad(String ciudad) {
+        this.ciudad.set(ciudad);
     }
 
-    public int getID_ROL() {
-        return ID_ROL;
+    public int getMunicipio() {
+        return municipio.get();
     }
 
-    public void setID_ROL(int ID_ROL) {
-        this.ID_ROL = ID_ROL;
+    public SimpleIntegerProperty municipioProperty() {
+        return municipio;
     }
 
-    private int ID_USUARIO;
-    private String NOMBRE_USUARIO;
-    private String PRIMER_NOMBRE;
-    private String SEGUNDO_NOMBRE;
-    private String PRIMER_APELLIDO;
-    private String SEGUNDO_APELLIDO;
-    private String OTROS_APELLIDOS;
-    private String PASSWORD;
-    private String CALLE;
-    private String COLONIA;
-    private String ZONA;
-    private String CIUDAD;
-    private int MUNICIPIO;
-    private int DEPARTAMENTO;
-    private String CODIGO_POSTAL;
-    private String TELEFONO;
-    private String NIT;
-    private String DPI;
-    private int ID_ROL;
+    public void setMunicipio(int municipio) {
+        this.municipio.set(municipio);
+    }
+
+    public int getDepartamento() {
+        return departamento.get();
+    }
+
+    public SimpleIntegerProperty departamentoProperty() {
+        return departamento;
+    }
+
+    public void setDepartamento(int departamento) {
+        this.departamento.set(departamento);
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal.get();
+    }
+
+    public SimpleStringProperty codigoPostalProperty() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal.set(codigoPostal);
+    }
+
+    public String getTelefono() {
+        return telefono.get();
+    }
+
+    public SimpleStringProperty telefonoProperty() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono.set(telefono);
+    }
+
+    public String getNit() {
+        return nit.get();
+    }
+
+    public SimpleStringProperty nitProperty() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit.set(nit);
+    }
+
+    public String getDpi() {
+        return dpi.get();
+    }
+
+    public SimpleStringProperty dpiProperty() {
+        return dpi;
+    }
+
+    public void setDpi(String dpi) {
+        this.dpi.set(dpi);
+    }
+
+    public int getIdRol() {
+        return idRol.get();
+    }
+
+    public SimpleIntegerProperty idRolProperty() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol.set(idRol);
+    }
+
+    private final SimpleIntegerProperty idUsuario;
+
+    private final SimpleStringProperty nombreUsuario;
+
+    private final SimpleStringProperty primerNombre;
+    private final SimpleStringProperty segundoNombre;
+    private final SimpleStringProperty primerApellido;
+    private final SimpleStringProperty segundoApellido;
+    private final SimpleStringProperty otrosApellidos;
+    private final SimpleStringProperty password;
+    private final SimpleStringProperty calle;
+    private final SimpleStringProperty colonia;
+    private final SimpleStringProperty zona;
+    private final SimpleStringProperty ciudad;
+    private final SimpleIntegerProperty municipio;
+    private final SimpleIntegerProperty departamento;
+    private final SimpleStringProperty codigoPostal;
+    private final SimpleStringProperty telefono;
+
+    private final SimpleStringProperty nit;
+    private final SimpleStringProperty dpi;
+    private final SimpleIntegerProperty idRol;
 }
+
