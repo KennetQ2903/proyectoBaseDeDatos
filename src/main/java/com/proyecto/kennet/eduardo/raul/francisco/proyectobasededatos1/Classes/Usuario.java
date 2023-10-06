@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Usuario {
+
     public Usuario(int idUsuario, String nombreUsuario, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String otrosApellidos, String password, String calle, String colonia, String zona, String ciudad, int municipio, int departamento, String codigoPostal, String telefono, String nit, String dpi, int idRol) {
         this.idUsuario = new SimpleIntegerProperty(idUsuario);
         this.nombreUsuario = new SimpleStringProperty(nombreUsuario);
@@ -24,6 +25,29 @@ public class Usuario {
         this.nit = new SimpleStringProperty(nit);
         this.dpi = new SimpleStringProperty(dpi);
         this.idRol = new SimpleIntegerProperty(idRol);
+    }
+
+    public Usuario() {
+        // Constructor predeterminado sin argumentos
+        this.idUsuario = new SimpleIntegerProperty(0);
+        this.nombreUsuario = new SimpleStringProperty("");
+        this.primerNombre = new SimpleStringProperty("");
+        this.segundoNombre = new SimpleStringProperty("");
+        this.primerApellido = new SimpleStringProperty("");
+        this.segundoApellido = new SimpleStringProperty("");
+        this.otrosApellidos = new SimpleStringProperty("");
+        this.password = new SimpleStringProperty("");
+        this.calle = new SimpleStringProperty("");
+        this.colonia = new SimpleStringProperty("");
+        this.zona = new SimpleStringProperty("");
+        this.ciudad = new SimpleStringProperty("");
+        this.municipio = new SimpleIntegerProperty(0);
+        this.departamento = new SimpleIntegerProperty(0);
+        this.codigoPostal = new SimpleStringProperty("");
+        this.telefono = new SimpleStringProperty("");
+        this.nit = new SimpleStringProperty("");
+        this.dpi = new SimpleStringProperty("");
+        this.idRol = new SimpleIntegerProperty(0);
     }
 
     public int getIdUsuario() {

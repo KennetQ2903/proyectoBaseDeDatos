@@ -1,6 +1,12 @@
 package com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Application;
+import com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes.AppData;
+import com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes.DBConnection;
+import com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +22,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
+    DBConnection DB = new DBConnection();
     public TextField username;
     public PasswordField password;
     public Button loginButton;
@@ -29,7 +41,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void handleSubmit(ActionEvent event) {
+    public void handleSubmit(ActionEvent event) throws SQLException {
         if (isValidLogin(username.getText(), password.getText())) {
             try {
                 FXMLLoader loader = new FXMLLoader(Application.class.getResource("App.fxml"));
@@ -54,9 +66,56 @@ public class LoginController implements Initializable {
         }
     }
 
-    private boolean isValidLogin(String username, String password) {
-        // En este ejemplo, simplemente verificamos si el nombre de usuario y la contraseña son iguales 1.
-        return "1".equals(username) && "1".equals(password);
+    private boolean isValidLogin(String username, String password)  {
+        try {
+            Connection connection = DB.getConnection();
+            String query = "SELECT JSON_OBJECT(\n" +
+                    "    'idUsuario' VALUE ID_USUARIO,\n" +
+                    "    'nombreUsuario' VALUE NOMBRE_USUARIO,\n" +
+                    "    'primerNombre' VALUE PRIMER_NOMBRE,\n" +
+                    "    'segundoNombre' VALUE SEGUNDO_NOMBRE,\n" +
+                    "    'primerApellido' VALUE PRIMER_APELLIDO,\n" +
+                    "    'segundoApellido' VALUE SEGUNDO_APELLIDO,\n" +
+                    "    'otrosApellidos' VALUE OTROS_APELLIDOS,\n" +
+                    "    'password' VALUE PASSWORD,\n" +
+                    "    'calle' VALUE CALLE,\n" +
+                    "    'colonia' VALUE COLONIA,\n" +
+                    "    'zona' VALUE ZONA,\n" +
+                    "    'ciudad' VALUE CIUDAD,\n" +
+                    "    'municipio' VALUE MUNICIPIO,\n" +
+                    "    'departamento' VALUE DEPARTAMENTO,\n" +
+                    "    'codigoPostal' VALUE CODIGO_POSTAL,\n" +
+                    "    'telefono' VALUE TELEFONO,\n" +
+                    "    'nit' VALUE NIT,\n" +
+                    "    'dpi' VALUE DPI,\n" +
+                    "    'idRol' VALUE ID_ROL\n" +
+                    ") AS JSON_RESULT\n" +
+                    "FROM USUARIO\n" +
+                    "WHERE NOMBRE_USUARIO = ? AND PASSWORD = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // Recupera el resultado como una cadena JSON
+                String jsonString = resultSet.getString("JSON_RESULT");
+                // Inicializa el ObjectMapper de Jackson
+                ObjectMapper objectMapper = new ObjectMapper();
+                // Deserializa el JSON en un objeto Usuario
+                Usuario usuario = objectMapper.readValue(jsonString, Usuario.class);
+                // Ahora, usuario contiene los datos deserializados del JSON y se le asigna a la variable global
+                AppData.setLoggedInUsername(usuario);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (JsonMappingException e) {
+            showMessage("Algo salio mal", e.getMessage());
+            return false;
+        } catch (SQLException | JsonProcessingException e) {
+            showMessage("Algo salio mal", e.getMessage());
+            return false;
+        }
     }
 
     // Método para mostrar un mensaje
