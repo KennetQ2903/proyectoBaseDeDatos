@@ -3,17 +3,16 @@ package com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Usuario {
+import java.text.SimpleDateFormat;
 
-    public Usuario(int idUsuario, String nombreUsuario, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String otrosApellidos, String password, String calle, String colonia, String zona, String ciudad, int municipio, int departamento, String codigoPostal, String telefono, String nit, String dpi, int idRol) {
-        this.idUsuario = new SimpleIntegerProperty(idUsuario);
-        this.nombreUsuario = new SimpleStringProperty(nombreUsuario);
+public class Proveedor {
+    public Proveedor(int idProveedor, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String otrosApellidos, String calle, String colonia, String zona, String ciudad, int municipio, int departamento, String codigoPostal, String telefono, String nit, String dpi, String email, int usuarioCreacion, int usuarioMod, String fechaCreacion, String fechaMod, int estado) {
+        this.idProveedor = new SimpleIntegerProperty(idProveedor);
         this.primerNombre = new SimpleStringProperty(primerNombre);
         this.segundoNombre = new SimpleStringProperty(segundoNombre);
         this.primerApellido = new SimpleStringProperty(primerApellido);
         this.segundoApellido = new SimpleStringProperty(segundoApellido);
         this.otrosApellidos = new SimpleStringProperty(otrosApellidos);
-        this.password = new SimpleStringProperty(password);
         this.calle = new SimpleStringProperty(calle);
         this.colonia = new SimpleStringProperty(colonia);
         this.zona = new SimpleStringProperty(zona);
@@ -24,19 +23,21 @@ public class Usuario {
         this.telefono = new SimpleStringProperty(telefono);
         this.nit = new SimpleStringProperty(nit);
         this.dpi = new SimpleStringProperty(dpi);
-        this.idRol = new SimpleIntegerProperty(idRol);
+        this.email = new SimpleStringProperty(email);
+        this.usuarioCreacion = new SimpleIntegerProperty(usuarioCreacion);
+        this.usuarioMod = new SimpleIntegerProperty(usuarioMod);
+        this.fechaCreacion = new SimpleStringProperty(fechaCreacion);
+        this.fechaMod = new SimpleStringProperty(fechaMod);
+        this.estado = new SimpleIntegerProperty(estado);
     }
 
-    public Usuario() {
-        // Constructor predeterminado sin argumentos
-        this.idUsuario = new SimpleIntegerProperty(0);
-        this.nombreUsuario = new SimpleStringProperty("");
+    public Proveedor() {
+        this.idProveedor = new SimpleIntegerProperty(0);
         this.primerNombre = new SimpleStringProperty("");
         this.segundoNombre = new SimpleStringProperty("");
         this.primerApellido = new SimpleStringProperty("");
         this.segundoApellido = new SimpleStringProperty("");
         this.otrosApellidos = new SimpleStringProperty("");
-        this.password = new SimpleStringProperty("");
         this.calle = new SimpleStringProperty("");
         this.colonia = new SimpleStringProperty("");
         this.zona = new SimpleStringProperty("");
@@ -47,31 +48,24 @@ public class Usuario {
         this.telefono = new SimpleStringProperty("");
         this.nit = new SimpleStringProperty("");
         this.dpi = new SimpleStringProperty("");
-        this.idRol = new SimpleIntegerProperty(0);
+        this.email = new SimpleStringProperty("");
+        this.usuarioCreacion = new SimpleIntegerProperty(0);
+        this.usuarioMod = new SimpleIntegerProperty(0);
+        this.fechaCreacion = new SimpleStringProperty("");
+        this.fechaMod = new SimpleStringProperty("");
+        this.estado = new SimpleIntegerProperty(0);
     }
 
-    public int getIdUsuario() {
-        return idUsuario.get();
+    public int getIdProveedor() {
+        return idProveedor.get();
     }
 
-    public SimpleIntegerProperty idUsuarioProperty() {
-        return idUsuario;
+    public SimpleIntegerProperty idProveedorProperty() {
+        return idProveedor;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario.set(idUsuario);
-    }
-
-    public String getNombreUsuario() {
-        return nombreUsuario.get();
-    }
-
-    public SimpleStringProperty nombreUsuarioProperty() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario.set(nombreUsuario);
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor.set(idProveedor);
     }
 
     public String getPrimerNombre() {
@@ -132,18 +126,6 @@ public class Usuario {
 
     public void setOtrosApellidos(String otrosApellidos) {
         this.otrosApellidos.set(otrosApellidos);
-    }
-
-    public String getPassword() {
-        return password.get();
-    }
-
-    public SimpleStringProperty passwordProperty() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password.set(password);
     }
 
     public String getCalle() {
@@ -266,28 +248,84 @@ public class Usuario {
         this.dpi.set(dpi);
     }
 
-    public int getIdRol() {
-        return idRol.get();
+    public String getEmail() {
+        return email.get();
     }
 
-    public SimpleIntegerProperty idRolProperty() {
-        return idRol;
+    public SimpleStringProperty emailProperty() {
+        return email;
     }
 
-    public void setIdRol(int idRol) {
-        this.idRol.set(idRol);
+    public void setEmail(String email) {
+        this.email.set(email);
     }
 
-    private final SimpleIntegerProperty idUsuario;
+    public int getUsuarioCreacion() {
+        return usuarioCreacion.get();
+    }
 
-    private final SimpleStringProperty nombreUsuario;
+    public SimpleIntegerProperty usuarioCreacionProperty() {
+        return usuarioCreacion;
+    }
 
+    public void setUsuarioCreacion(int usuarioCreacion) {
+        this.usuarioCreacion.set(usuarioCreacion);
+    }
+
+    public int getUsuarioMod() {
+        return usuarioMod.get();
+    }
+
+    public SimpleIntegerProperty usuarioModProperty() {
+        return usuarioMod;
+    }
+
+    public void setUsuarioMod(int usuarioMod) {
+        this.usuarioMod.set(usuarioMod);
+    }
+
+    public String getFechaCreacion() {
+        return fechaCreacion.get();
+    }
+
+    public SimpleStringProperty fechaCreacionProperty() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion.set(fechaCreacion);
+    }
+
+    public String getFechaMod() {
+        return fechaMod.get();
+    }
+
+    public SimpleStringProperty fechaModProperty() {
+        return fechaMod;
+    }
+
+    public void setFechaMod(String fechaMod) {
+        this.fechaMod.set(fechaMod);
+    }
+
+    public int getEstado() {
+        return estado.get();
+    }
+
+    public SimpleIntegerProperty estadoProperty() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado.set(estado);
+    }
+
+    private final SimpleIntegerProperty idProveedor;
     private final SimpleStringProperty primerNombre;
     private final SimpleStringProperty segundoNombre;
     private final SimpleStringProperty primerApellido;
     private final SimpleStringProperty segundoApellido;
     private final SimpleStringProperty otrosApellidos;
-    private final SimpleStringProperty password;
     private final SimpleStringProperty calle;
     private final SimpleStringProperty colonia;
     private final SimpleStringProperty zona;
@@ -296,9 +334,13 @@ public class Usuario {
     private final SimpleIntegerProperty departamento;
     private final SimpleStringProperty codigoPostal;
     private final SimpleStringProperty telefono;
-
     private final SimpleStringProperty nit;
     private final SimpleStringProperty dpi;
-    private final SimpleIntegerProperty idRol;
-}
+    private final SimpleStringProperty email;
+    private final SimpleIntegerProperty usuarioCreacion;
+    private final SimpleIntegerProperty usuarioMod;
+    private final SimpleStringProperty fechaCreacion;
+    private final SimpleStringProperty fechaMod;
+    private final SimpleIntegerProperty estado;
 
+}

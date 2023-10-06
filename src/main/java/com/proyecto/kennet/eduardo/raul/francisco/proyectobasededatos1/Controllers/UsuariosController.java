@@ -1,6 +1,8 @@
 package com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers;
 
 import com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Classes.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,8 +18,12 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class UsuariosController implements Initializable {
+    Usuario selectedUser = null;
     Usuario usuario = null;
     DBConnection DB = new DBConnection();
+    ObservableList<Departamento> departamentosList = FXCollections.observableArrayList();
+    ObservableList<Municipio> municipiosList = FXCollections.observableArrayList();
+    ObservableList<Rol> rolesList = FXCollections.observableArrayList();
     public TextField username;
     public TextField firstname1;
     public TextField firstname2;
@@ -38,16 +44,85 @@ public class UsuariosController implements Initializable {
     public ComboBox<Rol> rol;
     public Button saveButton;
     public TableView<Usuario> userTable;
+    public TableColumn<Usuario, Integer> idColumn;
+    public TableColumn<Usuario, String> nameColumn;
+    public TableColumn<Usuario, String> nitColumn;
+    public TableColumn<Usuario, String> dpiColumn;
+    public TableColumn<Usuario, Integer> rolColumn;
+    public Button editUserButton;
+    public Button deleteUserButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Código para inicializar componentes o realizar acciones al cargar el FXML
-        traerDepartamentos();
+        setDepartamentos();
         setRoles();
-//        setUsuarios();
+        setUsuarios();
+
+        editUserButton.setDisable(true);
+        deleteUserButton.setDisable(true);
+
+        // Agrega un listener para capturar la selección de filas
+        userTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Usuario>() {
+            @Override
+            public void changed(ObservableValue<? extends Usuario> observable, Usuario oldValue, Usuario newValue) {
+                if (newValue != null) { //asignamos el usuario seleccionado
+                    selectedUser = newValue;
+                    editUserButton.setDisable(false);
+                    deleteUserButton.setDisable(false);
+                } else {
+                    editUserButton.setDisable(true);
+                    deleteUserButton.setDisable(true);
+                }
+            }
+        });
     }
 
-    private void traerDepartamentos() {
+    private void unselectedUserAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Debe seleccionar un usuario");
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void deleteUser() {
+        if (selectedUser == null) {
+            unselectedUserAlert();
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Eliminar");
+        alert.setHeaderText("¿Deseas eliminar al usuario " + selectedUser.getNombreUsuario() + "?");
+        alert.setContentText("Seleccione una opción:");
+        ButtonType buttonTypeSi = new ButtonType("Sí");
+        ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeSi, buttonTypeNo);
+
+        // Mostrar la alerta y esperar a que el usuario seleccione una opción
+        alert.showAndWait().ifPresent(response -> {
+            if (response == buttonTypeSi) {
+                // El usuario seleccionó "Sí"
+                try {
+                    Connection connection = DB.getConnection();
+                    String query = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
+                    /* ASEGURATE DE NO ESTAR LOGUEADO EN SQL DEVELOPER, SI NO, NO TRAERA NADA DE INFORMACION YA QUE BLOQUEA LA QUERY */
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setInt(1, selectedUser.getIdUsuario());
+                    statement.executeQuery();
+                } catch (SQLException e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText("Error al tratar de eliminar el usuario");
+                    errorAlert.setContentText(e.getMessage());
+                    errorAlert.showAndWait();
+                }
+                setUsuarios();
+            }
+        });
+    }
+
+    private void setDepartamentos() {
         try {
             Connection connection = DB.getConnection();
             String query = "SELECT * FROM DEPARTAMENTO";
@@ -61,12 +136,14 @@ public class UsuariosController implements Initializable {
                  * EL METODO TOSTRING EN NUESTRA CLASE DEPARTAMENTO
                  * */
                 while (result.next()) {
-                    departamento.getItems().add(new Departamento(
+                    Departamento dep = new Departamento(
                             result.getInt("ID_DEPARTAMENTO"),
                             result.getString("CODIGO"),
                             result.getString("NOMBRE")
-                    ));
+                    );
+                    departamentosList.add(dep);
                 }
+                departamento.setItems(departamentosList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,13 +169,15 @@ public class UsuariosController implements Initializable {
             //Limpiamos todos los elementos para que no se dupliquen ni se agreguen infinitamente
             municipio.getItems().removeAll(municipio.getItems());
             while (result.next()) {
-                municipio.getItems().add(new Municipio(
+                Municipio mun = new Municipio(
                         result.getInt("ID_MUNICIPIO"),
                         result.getInt("DEPARTAMENTO"),
                         result.getString("CODIGO"),
                         result.getString("NOMBRE")
-                ));
+                );
+                municipiosList.add(mun);
             }
+            municipio.setItems(municipiosList);
         }
     }
 
@@ -109,35 +188,37 @@ public class UsuariosController implements Initializable {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                rol.getItems().add(new Rol(
+                Rol r = new Rol(
                         result.getInt("ID_ROL"),
                         result.getString("NOMBRE")
-                ));
+                );
+                rolesList.add(r);
             }
+            rol.setItems(rolesList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Metodo utilizado para obtener el listado de usuarios y asignarlos
+     * a la TableView de usuarios
+     */
     private void setUsuarios() {
-        TableColumn<Usuario, Integer> columnaId = new TableColumn<>("ID");
-        columnaId.setCellValueFactory(new PropertyValueFactory<>("ID_USUARIO"));
-
-        TableColumn<Usuario, String> columnaNombre = new TableColumn<>("Nombre de usuario");
-        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("NOMBRE_USUARIO"));
-
-        TableColumn<Usuario, String> columnaNIT = new TableColumn<>("NIT");
-        columnaNIT.setCellValueFactory(new PropertyValueFactory<>("NIT"));
-
-        TableColumn<Usuario, String> columnaDPI = new TableColumn<>("DPI");
-        columnaDPI.setCellValueFactory(new PropertyValueFactory<>("DPI"));
-
-        TableColumn<Usuario, Integer> columnaROL = new TableColumn<>("ROL");
-        columnaROL.setCellValueFactory(new PropertyValueFactory<>("ID_ROL"));
-
-        userTable.getColumns().addAll(columnaNombre);
-
         try {
+            //Configuramos las columnas para que correspondan a una propiedad de la clase Usuario
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombreUsuario"));
+            nitColumn.setCellValueFactory(new PropertyValueFactory<>("nit"));
+            dpiColumn.setCellValueFactory(new PropertyValueFactory<>("dpi"));
+            rolColumn.setCellValueFactory(new PropertyValueFactory<>("idRol"));
+            // TAMAÑOS DE LAS COLUMNAS
+            idColumn.setMinWidth(80);
+            nameColumn.setMinWidth(120);
+            nitColumn.setMinWidth(120);
+            dpiColumn.setMinWidth(120);
+            rolColumn.setMinWidth(80);
+
             Connection connection = DB.getConnection();
             String query = "SELECT * FROM USUARIO";
             /* ASEGURATE DE NO ESTAR LOGUEADO EN SQL DEVELOPER, SI NO, NO TRAERA NADA DE INFORMACION YA QUE BLOQUEA LA QUERY */
@@ -146,29 +227,28 @@ public class UsuariosController implements Initializable {
             if (result != null) {
                 ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList();
                 while (result.next()) {
-                    listaUsuarios.add(
-                            new Usuario(
-                                    result.getInt("ID_USUARIO"),
-                                    result.getString("NOMBRE_USUARIO"),
-                                    result.getString("PRIMER_NOMBRE"),
-                                    result.getString("SEGUNDO_NOMBRE"),
-                                    result.getString("PRIMER_APELLIDO"),
-                                    result.getString("SEGUNDO_APELLIDO"),
-                                    result.getString("OTROS_APELLIDOS"),
-                                    result.getString("PASSWORD"),
-                                    result.getString("CALLE"),
-                                    result.getString("COLONIA"),
-                                    result.getString("ZONA"),
-                                    result.getString("CIUDAD"),
-                                    result.getInt("MUNICIPIO"),
-                                    result.getInt("DEPARTAMENTO"),
-                                    result.getString("CODIGO_POSTAL"),
-                                    result.getString("TELEFONO"),
-                                    result.getString("NIT"),
-                                    result.getString("DPI"),
-                                    result.getInt("ID_ROL")
-                            )
+                    Usuario user = new Usuario(
+                            result.getInt("ID_USUARIO"),
+                            result.getString("NOMBRE_USUARIO"),
+                            result.getString("PRIMER_NOMBRE"),
+                            result.getString("SEGUNDO_NOMBRE"),
+                            result.getString("PRIMER_APELLIDO"),
+                            result.getString("SEGUNDO_APELLIDO"),
+                            result.getString("OTROS_APELLIDOS"),
+                            result.getString("PASSWORD"),
+                            result.getString("CALLE"),
+                            result.getString("COLONIA"),
+                            result.getString("ZONA"),
+                            result.getString("CIUDAD"),
+                            result.getInt("MUNICIPIO"),
+                            result.getInt("DEPARTAMENTO"),
+                            result.getString("CODIGO_POSTAL"),
+                            result.getString("TELEFONO"),
+                            result.getString("NIT"),
+                            result.getString("DPI"),
+                            result.getInt("ID_ROL")
                     );
+                    listaUsuarios.add(user);
                 }
                 userTable.setItems(listaUsuarios);
             }
@@ -221,6 +301,7 @@ public class UsuariosController implements Initializable {
      * Esta función se utiliza para limpiar el formulario
      * una vez guardado con exito un usuario
      */
+    @FXML
     private void clearAllFields() {
         username.setText("");
         firstname1.setText("");
@@ -240,6 +321,46 @@ public class UsuariosController implements Initializable {
         telefono.setText("");
         nit.setText("");
         dpi.setText("");
+    }
+
+    /**
+     * Esta función se utiliza para setear el formulario
+     * una vez obtenido con exito el usuario
+     */
+    @FXML
+    private void setUserForm() {
+        if (selectedUser == null) {
+            unselectedUserAlert();
+        }
+
+        // Buscar el departamento por ID
+        Departamento departamentoEncontrado = departamentosList.filtered(depto -> depto.getID_DEPARTAMENTO() == selectedUser.getDepartamento()).stream().findFirst().orElse(null);
+
+        Rol rolEncontrado = rolesList.filtered(rol -> rol.getID_ROL() == selectedUser.getIdRol()).stream().findFirst().orElse(null);
+
+        username.setText(selectedUser.getNombreUsuario());
+        firstname1.setText(selectedUser.getPrimerNombre());
+        firstname2.setText(selectedUser.getSegundoNombre());
+        lastname1.setText(selectedUser.getPrimerApellido());
+        lastname2.setText(selectedUser.getSegundoApellido());
+        lastname3.setText(selectedUser.getOtrosApellidos());
+        password.setText(selectedUser.getPassword());
+        calle.setText(selectedUser.getCalle());
+        colonia.setText(selectedUser.getColonia());
+        zona.setText(selectedUser.getZona());
+        ciudad.setText(selectedUser.getCiudad());
+        departamento.getSelectionModel().select(departamentoEncontrado);
+
+        //una vez accionamos la selección del departamento este lo buscará y podremos luego buscarlo en el listado de municipios por departamento
+        Municipio municipioEncontrado = municipiosList.filtered(mun -> mun.getID_MUNICIPIO() == selectedUser.getMunicipio()).stream().findFirst().orElse(null);
+
+        municipio.getSelectionModel().select(municipioEncontrado);
+
+        rol.getSelectionModel().select(rolEncontrado);
+        postal.setText(selectedUser.getCodigoPostal());
+        telefono.setText(selectedUser.getTelefono());
+        nit.setText(selectedUser.getNit());
+        dpi.setText(selectedUser.getDpi());
     }
 
     /**
@@ -363,8 +484,8 @@ public class UsuariosController implements Initializable {
                 ")";
         int userId = 0;
         //PONEMOS UN ID POR DEFECTO QUE SABEMOS QUE NO EXISTE, SI HEMOS SETEADO UN USUARIO OBTENDRA SU ID
-        if (usuario != null) {
-            userId = usuario.getID_USUARIO();
+        if (selectedUser != null) {
+            userId = selectedUser.getIdUsuario();
         }
         try {
             Connection connection = DB.getConnection();
@@ -395,6 +516,7 @@ public class UsuariosController implements Initializable {
             alert.setContentText("Usuario guardado correctamente");
             alert.showAndWait();
             clearAllFields();
+            setUsuarios();
             return;
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
