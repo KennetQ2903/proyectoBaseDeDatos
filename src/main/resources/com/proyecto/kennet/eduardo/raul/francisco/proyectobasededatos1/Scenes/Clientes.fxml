@@ -3,6 +3,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="793.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.ClientesController">
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.VendedoresController"
+            prefHeight="793.0" prefWidth="1162.0">
     <Label layoutX="560.0" layoutY="380.0" text="Clientes" />
 </AnchorPane>
