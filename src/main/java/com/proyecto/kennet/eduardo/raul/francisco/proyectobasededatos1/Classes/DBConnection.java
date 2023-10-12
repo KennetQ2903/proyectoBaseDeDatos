@@ -12,7 +12,7 @@ public class DBConnection {
     public Connection getConnection() throws SQLException {
         // Cambia la URL según tu configuración
         String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-        String user = "SYS";
+        String user = "SYSTEM";
         String password = "xv34";
         try {
             // Establece la conexión
