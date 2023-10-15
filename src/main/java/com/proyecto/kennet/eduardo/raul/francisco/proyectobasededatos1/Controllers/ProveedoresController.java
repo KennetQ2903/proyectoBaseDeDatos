@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -24,7 +25,6 @@ public class ProveedoresController implements Initializable {
     ObservableList<Departamento> departamentosList = FXCollections.observableArrayList();
     ObservableList<Municipio> municipiosList = FXCollections.observableArrayList();
     ObservableList<Estado> estadoList = FXCollections.observableArrayList();
-    ObservableList<Rol> rolesList = FXCollections.observableArrayList();
     public TextField firstname1;
     public TextField firstname2;
     public TextField lastname1;
@@ -52,6 +52,7 @@ public class ProveedoresController implements Initializable {
     public TableColumn<Proveedor, Integer> stateColumn;
     public TableColumn<Proveedor, String> fechaCreaColumn;
     public TableColumn<Proveedor, String> fechaModColumn;
+    public VBox tableVBox;
 
 
     @Override

@@ -135,4 +135,19 @@ public class AppController {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    private void navigateToRoles() {
+        try {
+            AnchorPane scene = getScene("Roles");
+            scenesContainer.getChildren().setAll(scene);
+        } catch (Exception e) {
+            // Manejo de errores si no se puede cargar "Roles.fxml"
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar la vista de Roles");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
 }
