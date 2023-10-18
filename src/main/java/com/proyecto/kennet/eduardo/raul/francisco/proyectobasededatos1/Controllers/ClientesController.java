@@ -24,19 +24,46 @@ Cliente selectCliente=null;
     private ComboBox<Departamento> BoxDepartamento;
     @FXML
     private ComboBox<Municipio> BoxMunicipio;
+    @FXML
     private TextField TextANombre;
+
+    @FXML
     private TextField TextCalle;
+
+    @FXML
     private TextField TextCiuda;
+
+    @FXML
     private TextField TextCodigo_post;
+
+    @FXML
     private TextField TextColonia;
+
+    @FXML
     private TextField TextDPI;
+
+    @FXML
     private TextField TextEmail;
+
+    @FXML
     private TextField TextNit;
-    private Label TextOApellido;
+
+    @FXML
     private TextField TextPApellido;
+
+    @FXML
     private TextField TextSApellido;
+
+    @FXML
+    private TextField TextSnombre;
+
+    @FXML
     private TextField TextTelefono;
+
+    @FXML
     private TextField TextZona;
+
+    @FXML
     private TextField TextoApellido;
     @FXML
     private Button ButtonEditar;
@@ -44,8 +71,6 @@ Cliente selectCliente=null;
     private Button ButtonEliminar;
     @FXML
     private TableView<Cliente> TablaClientes;
-
-
     @FXML
     private TableColumn<Cliente, Integer> TableID;
     @FXML
@@ -67,9 +92,7 @@ Cliente selectCliente=null;
     **/
    public String SQLDepartamentos="SELECT * FROM SYS.DEPARTAMENTO";;
     public String SQLMunicipios= "SELECT * FROM SYS.MUNICIPIO WHERE DEPARTAMENTO = ?";;
-    public String SQLInsert;
     public String SQLDelete;
-    public String SQLUpdate;
     public String SQLSetClientes="SELECT * FROM SYS.CLIENTE";
     // Variable de conexión a bd
    DBConnection conn=new DBConnection();
@@ -109,6 +132,7 @@ Cliente selectCliente=null;
                 }
             });
         } catch (Exception e) {
+            //Si existe un error enviamos un mensaje
             Mensaje("No se puedo Obtener Lista", String.valueOf(e));
             System.out.println(e);
 
@@ -240,37 +264,176 @@ private void setClientes(){
 
     @FXML
     void GuardarDB(ActionEvent event) {
-
-
-        System.out.println("Hola");
         try {
-            int a=0;
-            conn.getConnection();
-            System.out.println(conn.getConnection());
-            conn.getConnection().close();
+            Departamento depa = BoxDepartamento.getSelectionModel().getSelectedItem();
+            Municipio muni=BoxMunicipio.getSelectionModel().getSelectedItem();
+            String municipioValue = BoxMunicipio.getValue().toString();
+            String aNombreValue = TextANombre.getText();
+            String calleValue = TextCalle.getText();
+            String ciudadValue = TextCiuda.getText();
+            String codigoPostValue = TextCodigo_post.getText();
+            String coloniaValue = TextColonia.getText();
+            String dpiValue = TextDPI.getText();
+            String emailValue = TextEmail.getText();
+            String nitValue = TextNit.getText();
+            String pApellidoValue = TextPApellido.getText();
+            String sApellidoValue = TextSApellido.getText();
+            String sNombreValue = TextSnombre.getText();
+            String telefonoValue = TextTelefono.getText();
+            String zonaValue = TextZona.getText();
+            String oApellidoValue = TextoApellido.getText();
 
-            if(a==1){
-                PreparedStatement insert= conn.getConnection().prepareStatement("insert into ");
+            String query = "MERGE INTO CLIENTE C\n" +
+                    "USING (\n" +
+                    "    SELECT\n" +
+                    "    ? AS ID_CLIENTE_S,\n" +
+                    "    ? AS PRIMER_NOMBRE_S,\n" +
+                    "    ? AS SEGUNDO_NOMBRE_S,\n" +
+                    "    ? AS PRIMER_APELLIDO_S,\n" +
+                    "    ? AS SEGUNDO_APELLIDO_S,\n" +
+                    "    ? AS OTROS_APELLIDOS_S,\n" +
+                    "    ? AS CALLE_S,\n" +
+                    "    ? AS COLONIA_S,\n" +
+                    "    ? AS ZONA_S,\n" +
+                    "    ? AS CIUDAD_S,\n" +
+                    "    ? AS MUNICIPIO_S,\n" +
+                    "    ? AS DEPARTAMENTO_S,\n" +
+                    "    ? AS CODIGO_POSTAL_S,\n" +
+                    "    ? AS TELEFONO_S,\n" +
+                    "    ? AS EMAIL_S,\n" +
+                    "    ? AS NIT_S,\n" +
+                    "    ? AS DPI_S,\n" +
+                    "    ? AS USUARIO_CREACION_S,\n" +
+                    "    ? AS USUARIO_MOD_S,\n" +
+                    "    ? AS FECHA_CREACION_S,\n" +
+                    "    ? AS FECHA_MOD_S,\n" +
+                    "    ? AS ESTADO_S\n" +
+                    "    FROM DUAL\n" +
+                    ") S\n" +
+                    "ON (C.ID_CLIENTE = S.ID_CLIENTE_S)\n" +
+                    "WHEN MATCHED THEN\n" +
+                    "UPDATE SET\n" +
+                    "    C.PRIMER_NOMBRE = S.PRIMER_NOMBRE_S,\n" +
+                    "    C.SEGUNDO_NOMBRE = S.SEGUNDO_NOMBRE_S,\n" +
+                    "    C.PRIMER_APELLIDO = S.PRIMER_APELLIDO_S,\n" +
+                    "    C.SEGUNDO_APELLIDO = S.SEGUNDO_APELLIDO_S,\n" +
+                    "    C.OTROS_APELLIDOS = S.OTROS_APELLIDOS_S,\n" +
+                    "    C.CALLE = S.CALLE_S,\n" +
+                    "    C.COLONIA = S.COLONIA_S,\n" +
+                    "    C.ZONA = S.ZONA_S,\n" +
+                    "    C.CIUDAD = S.CIUDAD_S,\n" +
+                    "    C.MUNICIPIO = S.MUNICIPIO_S,\n" +
+                    "    C.DEPARTAMENTO = S.DEPARTAMENTO_S,\n" +
+                    "    C.CODIGO_POSTAL = S.CODIGO_POSTAL_S,\n" +
+                    "    C.TELEFONO = S.TELEFONO_S,\n" +
+                    "    C.EMAIL = S.EMAIL_S,\n" +
+                    "    C.NIT = S.NIT_S,\n" +
+                    "    C.DPI = S.DPI_S,\n" +
+                    "    C.USUARIO_CREACION = S.USUARIO_CREACION_S,\n" +
+                    "    C.USUARIO_MOD = S.USUARIO_MOD_S,\n" +
+                    "    C.FECHA_CREACION = S.FECHA_CREACION_S,\n" +
+                    "    C.FECHA_MOD = S.FECHA_MOD_S,\n" +
+                    "    C.ESTADO = S.ESTADO_S\n" +
+                    "WHEN NOT MATCHED THEN\n" +
+                    "INSERT (\n" +
+                    "        C.PRIMER_NOMBRE,\n" +
+                    "        C.SEGUNDO_NOMBRE,\n" +
+                    "        C.PRIMER_APELLIDO,\n" +
+                    "        C.SEGUNDO_APELLIDO,\n" +
+                    "        C.OTROS_APELLIDOS,\n" +
+                    "        C.CALLE,\n" +
+                    "        C.COLONIA,\n" +
+                    "        C.ZONA,\n" +
+                    "        C.CIUDAD,\n" +
+                    "        C.MUNICIPIO,\n" +
+                    "        C.DEPARTAMENTO,\n" +
+                    "        C.CODIGO_POSTAL,\n" +
+                    "        C.TELEFONO,\n" +
+                    "        C.EMAIL,\n" +
+                    "        C.NIT,\n" +
+                    "        C.DPI,\n" +
+                    "        C.USUARIO_CREACION,\n" +
+                    "        C.USUARIO_MOD,\n" +
+                    "        C.FECHA_CREACION,\n" +
+                    "        C.FECHA_MOD,\n" +
+                    "        C.ESTADO\n" +
+                    ") VALUES (\n" +
+                    "        S.PRIMER_NOMBRE_S,\n" +
+                    "        S.SEGUNDO_NOMBRE_S,\n" +
+                    "        S.PRIMER_APELLIDO_S,\n" +
+                    "        S.SEGUNDO_APELLIDO_S,\n" +
+                    "        S.OTROS_APELLIDOS_S,\n" +
+                    "        S.CALLE_S,\n" +
+                    "        S.COLONIA_S,\n" +
+                    "        S.ZONA_S,\n" +
+                    "        S.CIUDAD_S,\n" +
+                    "        S.MUNICIPIO_S,\n" +
+                    "        S.DEPARTAMENTO_S,\n" +
+                    "        S.CODIGO_POSTAL_S,\n" +
+                    "        S.TELEFONO_S,\n" +
+                    "        S.EMAIL_S,\n" +
+                    "        S.NIT_S,\n" +
+                    "        S.DPI_S,\n" +
+                    "        S.USUARIO_CREACION_S,\n" +
+                    "        S.USUARIO_MOD_S,\n" +
+                    "        S.FECHA_CREACION_S,\n" +
+                    "        S.FECHA_MOD_S,\n" +
+                    "        S.ESTADO_S" +
+                    ")";
 
-            }else{
+int id_Cliente=0;
+if(selectCliente != null){
+id_Cliente = selectCliente.getId_cliente();
+}
+PreparedStatement statement = conn.getConnection().prepareStatement(query);
+            statement.setInt(1, depa.getID_DEPARTAMENTO());
+            statement.setInt(2, muni.getID_MUNICIPIO());
+            statement.setString(3, aNombreValue);
+            statement.setString(4, calleValue);
+            statement.setString(5, ciudadValue);
+            statement.setString(6, codigoPostValue);
+            statement.setString(7, coloniaValue);
+            statement.setString(8, dpiValue);
+            statement.setString(9, emailValue);
+            statement.setString(10, nitValue);
+            statement.setString(11, pApellidoValue);
+            statement.setString(12, sApellidoValue);
+            statement.setString(13, sNombreValue);
+            statement.setString(14, telefonoValue);
+            statement.setString(15, zonaValue);
+            statement.setString(16, oApellidoValue);
 
-         Mensaje("Error Campos Vacios", "Campos Vacios al ingreso de datos");
-            }
 
+            statement.executeQuery();
+            Mensaje("Ingreso a Base de datos", "Los datos Fueron ingresados correctamente");
+setClientes();
         }catch (SQLException ex){
             System.out.println(ex);
             Mensaje("Error en Base de Datos", String.valueOf(ex));
         }
 
     }
-
+//metodo para limpiar los campos
     @FXML
     void LimpiarLabel(ActionEvent event) {
         System.out.println("Hola 2");
         Alerta("Limpiar Campos", "Se limpirar todo los campos","¿Desea Continuar?");
         alert.showAndWait().ifPresent(result ->{
             if(result == buttonTypeYes ){
-              Te
+              TextANombre.setText("");
+              TextSnombre.setText("");
+              TextPApellido.setText("");
+              TextSApellido.setText("");
+              TextoApellido.setText("");
+              TextCalle.setText("");
+              TextColonia.setText("");
+              TextZona.setText("");
+              TextCiuda.setText("");
+              TextCodigo_post.setText("");
+              TextTelefono.setText("");
+              TextEmail.setText("");
+              TextNit.setText("");
+                TextDPI.setText("");
             }else if(result == buttonTypeNo){
                 System.out.println("Eligio no");
 
@@ -307,10 +470,11 @@ public void Mensaje(String titulo, String mensaje){
     Notifications.create()
             .title(titulo)
             .text(mensaje)
-            .hideAfter(Duration.seconds(3))
+            .hideAfter(Duration.seconds(6))
             .show();
 
 }
+//Metodo llena los campos para crear una alerta generica
 public void Alerta(String Titulo, String Header, String Contenido ){
     alert.setTitle(Titulo);
     alert.setHeaderText(Header);
@@ -318,6 +482,33 @@ public void Alerta(String Titulo, String Header, String Contenido ){
     // Configura los botones
     alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 }
+    /**
+     * Método para validar si los campos no están vacíos.
+     * @return true si todos los campos están llenos, false si al menos uno está vacío.
+     */
+    private boolean validarCampos() {
+        if (BoxDepartamento.getValue() == null ||
+                BoxMunicipio.getValue() == null ||
+                TextANombre.getText().isEmpty() ||
+                TextCalle.getText().isEmpty() ||
+                TextCiuda.getText().isEmpty() ||
+                TextCodigo_post.getText().isEmpty() ||
+                TextColonia.getText().isEmpty() ||
+                TextDPI.getText().isEmpty() ||
+                TextEmail.getText().isEmpty() ||
+                TextNit.getText().isEmpty() ||
+                TextPApellido.getText().isEmpty() ||
+                TextSApellido.getText().isEmpty() ||
+                TextSnombre.getText().isEmpty() ||
+                TextTelefono.getText().isEmpty() ||
+                TextZona.getText().isEmpty() ||
+                TextoApellido.getText().isEmpty()) {
+            // Uno o más campos están vacíos
+            return false;
+        }
+        return true;
+    }
+
 
 
 }

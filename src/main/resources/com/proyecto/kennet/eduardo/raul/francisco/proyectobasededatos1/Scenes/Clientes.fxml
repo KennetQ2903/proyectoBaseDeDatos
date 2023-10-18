@@ -12,7 +12,7 @@
    <Button layoutX="373.0" layoutY="310.0" mnemonicParsing="false" onAction="#LimpiarLabel" text="Limpiar Campos" />
    <Button layoutX="713.0" layoutY="310.0" mnemonicParsing="false" onAction="#GuardarDB" text="Guardar Campos" />
    <TextField fx:id="TextANombre" layoutX="149.0" layoutY="109.0" promptText="Primer Nombre" />
-   <TextField layoutX="306.0" layoutY="109.0" promptText="Segundo Nombre" />
+   <TextField fx:id="TextSnombre" layoutX="306.0" layoutY="109.0" promptText="Segundo Nombre" />
    <TextField fx:id="TextPApellido" layoutX="460.0" layoutY="109.0" promptText="Primer Apellido" />
    <TextField fx:id="TextSApellido" layoutX="618.0" layoutY="109.0" promptText="Segundo Apellido" />
    <TextField fx:id="TextoApellido" layoutX="775.0" layoutY="109.0" promptText="Otro Apellido" />
@@ -31,11 +31,11 @@
    <TableView fx:id="TablaClientes" layoutX="42.0" layoutY="377.0" prefHeight="360.0" prefWidth="641.0">
      <columns>
        <TableColumn fx:id="TableID" prefWidth="75.0" text="ID" />
-       <TableColumn fx:id="TableNombre" prefWidth="120.0" text="NOMBRE" />
-         <TableColumn fx:id="TableEmail" prefWidth="75.0" text="EMAIL" />
-         <TableColumn fx:id="TableNit" prefWidth="75.0" text="NIT" />
-         <TableColumn fx:id="TableTelefono" prefWidth="75.0" text="TELEFONO" />
-         <TableColumn fx:id="TableDPI" prefWidth="75.0" text="DPI" />
+       <TableColumn fx:id="TableNombre" prefWidth="132.0" text="NOMBRE" />
+         <TableColumn fx:id="TableEmail" prefWidth="107.0" text="EMAIL" />
+         <TableColumn fx:id="TableNit" prefWidth="69.0" text="NIT" />
+         <TableColumn fx:id="TableTelefono" prefWidth="87.0" text="TELEFONO" />
+         <TableColumn fx:id="TableDPI" prefWidth="170.0" text="DPI" />
      </columns>
    </TableView>
    <Button fx:id="ButtonEditar" layoutX="985.0" layoutY="80.0" mnemonicParsing="false" onAction="#ButtonEditar" text="Editar" />
