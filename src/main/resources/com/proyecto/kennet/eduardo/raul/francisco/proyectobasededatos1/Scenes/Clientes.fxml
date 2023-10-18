@@ -9,45 +9,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="793.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyecto.kennet.eduardo.raul.francisco.proyectobasededatos1.Controllers.ClientesController">
-   <Button layoutX="373.0" layoutY="310.0" mnemonicParsing="false" onAction="#LimpiarLabel" text="Limpiar" />
-   <Button layoutX="713.0" layoutY="310.0" mnemonicParsing="false" onAction="#GuardarDB" text="Guardar" />
-   <TextField fx:id="TextANombre" layoutX="149.0" layoutY="109.0" />
-   <Label layoutX="149.0" layoutY="92.0" text="Primer Nombre" />
-   <TextField layoutX="306.0" layoutY="109.0" />
-   <Label layoutX="306.0" layoutY="92.0" text="Segundo Nombre" />
-   <TextField fx:id="TextPApellido" layoutX="460.0" layoutY="109.0" />
-   <Label layoutX="460.0" layoutY="92.0" text="Primer Apellido" />
-   <TextField fx:id="TextSApellido" layoutX="618.0" layoutY="109.0" />
-   <Label layoutX="618.0" layoutY="92.0" text="Segundo Apellido" />
-   <TextField fx:id="TextoApellido" layoutX="775.0" layoutY="109.0" />
-   <Label fx:id="TextOApellido" layoutX="775.0" layoutY="92.0" text="Otro Apellido" />
+   <Button layoutX="373.0" layoutY="310.0" mnemonicParsing="false" onAction="#LimpiarLabel" text="Limpiar Campos" />
+   <Button layoutX="713.0" layoutY="310.0" mnemonicParsing="false" onAction="#GuardarDB" text="Guardar Campos" />
+   <TextField fx:id="TextANombre" layoutX="149.0" layoutY="109.0" promptText="Primer Nombre" />
+   <TextField layoutX="306.0" layoutY="109.0" promptText="Segundo Nombre" />
+   <TextField fx:id="TextPApellido" layoutX="460.0" layoutY="109.0" promptText="Primer Apellido" />
+   <TextField fx:id="TextSApellido" layoutX="618.0" layoutY="109.0" promptText="Segundo Apellido" />
+   <TextField fx:id="TextoApellido" layoutX="775.0" layoutY="109.0" promptText="Otro Apellido" />
    <Label layoutX="149.0" layoutY="145.0" text="Direccion" />
-   <Label layoutX="149.0" layoutY="166.0" text="Calle" />
-   <TextField fx:id="TextCalle" layoutX="149.0" layoutY="183.0" />
-   <TextField fx:id="TextColonia" layoutX="306.0" layoutY="183.0" />
-   <Label layoutX="306.0" layoutY="166.0" text="Colonia" />
-   <TextField fx:id="TextZona" layoutX="460.0" layoutY="183.0" />
-   <Label layoutX="460.0" layoutY="166.0" text="Zona" />
-   <TextField fx:id="TextCiuda" layoutX="618.0" layoutY="183.0" />
-   <Label layoutX="618.0" layoutY="166.0" text="Ciudad" />
-   <ComboBox fx:id="BoxDepartamento" layoutX="775.0" layoutY="183.0" onAction="#setMunicipios" prefHeight="25.0" prefWidth="82.0" />
-   <ComboBox fx:id="BoxMunicipio" layoutX="859.0" layoutY="183.0" prefHeight="25.0" prefWidth="82.0" />
-   <Label layoutX="859.0" layoutY="166.0" text="Municipio" />
-   <Label layoutX="773.0" layoutY="166.0" text="Departamento" />
-   <TextField fx:id="TextCodigo_post" layoutX="948.0" layoutY="183.0" prefHeight="25.0" prefWidth="102.0" />
-   <Label layoutX="948.0" layoutY="166.0" text="Codigo Postal" />
-   <TextField fx:id="TextTelefono" layoutX="149.0" layoutY="247.0" />
-   <Label layoutX="152.0" layoutY="230.0" text="Telefono" />
-   <TextField fx:id="TextEmail" layoutX="306.0" layoutY="247.0" />
-   <Label layoutX="306.0" layoutY="230.0" text="Email" />
-   <TextField fx:id="TextNit" layoutX="460.0" layoutY="247.0" />
-   <Label layoutX="460.0" layoutY="230.0" text="Nit" />
-   <TextField fx:id="TextDPI" layoutX="618.0" layoutY="247.0" />
-   <Label layoutX="618.0" layoutY="230.0" text="DPI" />
-   <TableView layoutX="42.0" layoutY="377.0" prefHeight="360.0" prefWidth="1079.0">
+   <TextField fx:id="TextCalle" layoutX="149.0" layoutY="183.0" promptText="Calle" />
+   <TextField fx:id="TextColonia" layoutX="306.0" layoutY="183.0" promptText="Colonia" />
+   <TextField fx:id="TextZona" layoutX="460.0" layoutY="183.0" promptText="Zona" />
+   <TextField fx:id="TextCiuda" layoutX="618.0" layoutY="183.0" promptText="Ciudad" />
+   <ComboBox fx:id="BoxDepartamento" layoutX="775.0" layoutY="183.0" onAction="#setMunicipios" prefHeight="25.0" prefWidth="114.0" promptText="Departamento" />
+   <ComboBox fx:id="BoxMunicipio" layoutX="890.0" layoutY="183.0" prefHeight="25.0" prefWidth="102.0" promptText="Municipio" />
+   <TextField fx:id="TextCodigo_post" layoutX="999.0" layoutY="183.0" prefHeight="25.0" prefWidth="102.0" promptText="Codigo Postal" />
+   <TextField fx:id="TextTelefono" layoutX="149.0" layoutY="247.0" promptText="Telefono" />
+   <TextField fx:id="TextEmail" layoutX="306.0" layoutY="247.0" promptText="Email" />
+   <TextField fx:id="TextNit" layoutX="460.0" layoutY="247.0" promptText="Nit" />
+   <TextField fx:id="TextDPI" layoutX="618.0" layoutY="247.0" promptText="DPI" />
+   <TableView fx:id="TablaClientes" layoutX="42.0" layoutY="377.0" prefHeight="360.0" prefWidth="641.0">
      <columns>
-       <TableColumn prefWidth="75.0" text="C1" />
-       <TableColumn prefWidth="75.0" text="C2" />
+       <TableColumn fx:id="TableID" prefWidth="75.0" text="ID" />
+       <TableColumn fx:id="TableNombre" prefWidth="120.0" text="NOMBRE" />
+         <TableColumn fx:id="TableEmail" prefWidth="75.0" text="EMAIL" />
+         <TableColumn fx:id="TableNit" prefWidth="75.0" text="NIT" />
+         <TableColumn fx:id="TableTelefono" prefWidth="75.0" text="TELEFONO" />
+         <TableColumn fx:id="TableDPI" prefWidth="75.0" text="DPI" />
      </columns>
    </TableView>
+   <Button fx:id="ButtonEditar" layoutX="985.0" layoutY="80.0" mnemonicParsing="false" onAction="#ButtonEditar" text="Editar" />
+   <Button fx:id="ButtonEliminar" layoutX="1050.0" layoutY="80.0" mnemonicParsing="false" onAction="#ButtonEliminar" text="Eliminar" />
 </AnchorPane>
