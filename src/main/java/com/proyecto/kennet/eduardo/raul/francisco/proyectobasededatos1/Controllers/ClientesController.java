@@ -92,8 +92,8 @@ Cliente selectCliente=null;
      * facilidad ya que pueden no necesitar el SYS.
     **/
    public String SQLDepartamentos="SELECT * FROM SYS.DEPARTAMENTO";;
-    public String SQLMunicipios= "SELECT * FROM SYS.MUNICIPIO WHERE DEPARTAMENTO = ?";;
-    public String SQLDelete;
+    public String SQLMunicipios= "SELECT * FROM SYS.MUNICIPIO WHERE DEPARTAMENTO = ?";
+    public String SQLDelete="UPDATE SYS.CLIENTE SET ESTADO = ? WHERE ID_CLIENTE = ?";
     public String SQLSetClientes="SELECT * FROM SYS.CLIENTE";
     // Variable de conexión a bd
    DBConnection conn=new DBConnection();
@@ -275,7 +275,10 @@ private void setClientes(){
                    rs.getDate("fecha_mod"),
                    rs.getInt("estado")
                    );
-                   ListaClientes.add(client);
+                   //como la eleminacion de los registros sera logico aqui solo va a mostrar los campos activos con 1
+                   if(rs.getInt("estado")==1){
+                       ListaClientes.add(client);
+                   }
                }
                TablaClientes.setItems(ListaClientes);
            }
@@ -292,7 +295,7 @@ private void setClientes(){
 
 
     @FXML
-    void GuardarDB(ActionEvent event) {
+    private void GuardarDB(ActionEvent event) {
 
             if(validarCampos() ==false){
                 Mensaje("Campos Vacios","Verificar los campos que esten llenos");
@@ -459,7 +462,7 @@ private void setClientes(){
     }
 //metodo para limpiar los campos
     @FXML
-    void LimpiarLabel(ActionEvent event) {
+    private void LimpiarLabel(ActionEvent event) {
         Alerta("Limpiar Campos", "Se limpirar todo los campos","¿Desea Continuar?");
         alert.showAndWait().ifPresent(result ->{
             if(result == buttonTypeYes ){
@@ -473,23 +476,42 @@ private void setClientes(){
     }
 
     @FXML
-    void ButtonEditar(ActionEvent event) {
+   private void ButtonEditar(ActionEvent event) {
 
     }
     @FXML
-    void ButtonEliminar(ActionEvent event) {
+    private void ButtonEliminar(ActionEvent event) {
+        Alerta("Eliminar Usuario", "Usuario sera Eliminado de BD","¿Desea Continuar?");
 alert.showAndWait().ifPresent(result ->{
-    Alerta("Eliminar Usuario", "Usuario sera Eliminado de BD","¿Desea Continuar?");
-    if(result == buttonTypeYes ){
-        System.out.println("Eligio Si");
-    }else if(result == buttonTypeNo){
-        System.out.println("Eligio no");
 
+    try {
+        int inde=selectCliente.getId_cliente();
+        if (result == buttonTypeYes) {
+
+            System.out.println(inde);
+            PreparedStatement statement = conn.getConnection().prepareStatement(SQLDelete);
+            statement.setInt(1,0);
+            statement.setInt(2, inde);
+
+
+            int FilasActu = statement.executeUpdate();
+            if(FilasActu >=1){
+                Mensaje("Eliminacion Exitosa", "El Registro Fue eliminado de forma\n"+"PASS\n"+"Cliente"+inde);
+                setClientes();
+            }else{
+                Mensaje("Eliminacion Faliida", "El Registro NO Fue eliminado de forma\n"+"FAIL");
+            }
+        } else if (result == buttonTypeNo) {
+
+            Mensaje("Eliminacion Cancelada", "Operacion Cancelada\n"+"PASS");
+        }
+    }catch (SQLException e){
+        Mensaje("Fallo Eliminacion", "Falla en Base de datos"+e);
     }
 
 });
     }
-public void clear(){
+private void clear(){
     TextANombre.setText("");
     TextSnombre.setText("");
     TextPApellido.setText("");
@@ -510,7 +532,7 @@ public void clear(){
     **Podemos enviar una notificacion flotante a la pantalla del computador para informar de cualquier tipo de error
      ** Recibe dos parametro el titulo de la notificacion y la informacion
     **/
-public void Mensaje(String titulo, String mensaje){
+private void Mensaje(String titulo, String mensaje){
     Notifications.create()
             .title(titulo)
             .text(mensaje)
@@ -519,7 +541,7 @@ public void Mensaje(String titulo, String mensaje){
 
 }
 //Metodo llena los campos para crear una alerta generica
-public void Alerta(String Titulo, String Header, String Contenido ){
+private void Alerta(String Titulo, String Header, String Contenido ){
     alert.setTitle(Titulo);
     alert.setHeaderText(Header);
     alert.setContentText(Contenido);
