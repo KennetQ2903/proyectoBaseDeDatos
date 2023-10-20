@@ -28,14 +28,14 @@
    <TextField fx:id="TextEmail" layoutX="306.0" layoutY="247.0" promptText="Email" />
    <TextField fx:id="TextNit" layoutX="460.0" layoutY="247.0" promptText="Nit" />
    <TextField fx:id="TextDPI" layoutX="618.0" layoutY="247.0" promptText="DPI" />
-   <TableView fx:id="TablaClientes" layoutX="42.0" layoutY="377.0" prefHeight="360.0" prefWidth="641.0">
+   <TableView fx:id="TablaClientes" layoutX="42.0" layoutY="377.0" prefHeight="360.0" prefWidth="633.0">
      <columns>
-       <TableColumn fx:id="TableID" prefWidth="75.0" text="ID" />
-       <TableColumn fx:id="TableNombre" prefWidth="132.0" text="NOMBRE" />
+       <TableColumn fx:id="TableID" prefWidth="61.0" text="ID" />
+       <TableColumn fx:id="TableNombre" prefWidth="146.0" text="NOMBRE" />
          <TableColumn fx:id="TableEmail" prefWidth="107.0" text="EMAIL" />
          <TableColumn fx:id="TableNit" prefWidth="69.0" text="NIT" />
          <TableColumn fx:id="TableTelefono" prefWidth="87.0" text="TELEFONO" />
-         <TableColumn fx:id="TableDPI" prefWidth="170.0" text="DPI" />
+         <TableColumn fx:id="TableDPI" maxWidth="4500.0" prefWidth="170.0" text="DPI" />
      </columns>
    </TableView>
    <Button fx:id="ButtonEditar" layoutX="985.0" layoutY="80.0" mnemonicParsing="false" onAction="#ButtonEditar" text="Editar" />
