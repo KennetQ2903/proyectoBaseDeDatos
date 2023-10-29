@@ -12,8 +12,8 @@ public class DBConnection {
     public Connection getConnection() throws SQLException {
         // Cambia la URL según tu configuración
         String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-        String user = "SYSTEM";
-        String password = "1234";
+        String user = "C##EDUARDO";
+        String password = "pass1234";
         try {
             // Establece la conexión
             return DriverManager.getConnection(jdbcUrl, user, password);
