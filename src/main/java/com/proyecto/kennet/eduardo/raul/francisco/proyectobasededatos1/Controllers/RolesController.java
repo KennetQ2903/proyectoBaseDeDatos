@@ -143,6 +143,11 @@ public class RolesController implements Initializable {
 
     private void setAccesos() {
         int id = selectedRol.getID_ROL();
+        //limpiar radio buttons
+        for(int i = 0; i <= 8; i++){
+            RadioButton radioButtonSelected = radioButtons.get(i);
+            radioButtonSelected.setSelected(false);
+        }
         //Buscamos los accesos por rol
         try {
             Connection connection = DB.getConnection();
@@ -154,8 +159,8 @@ public class RolesController implements Initializable {
                 while (result.next()) {
                     int idAcceso = result.getInt("ID_ACCESO") - 1; //index
                     RadioButton radioButtonSelected = radioButtons.get(idAcceso);
-                    boolean granted = result.getBoolean("GRANTED");
-                    radioButtonSelected.setSelected(granted);
+//                    boolean granted = result.getBoolean("GRANTED");
+                    radioButtonSelected.setSelected(true);
                 }
             }
         } catch (SQLException e) {
