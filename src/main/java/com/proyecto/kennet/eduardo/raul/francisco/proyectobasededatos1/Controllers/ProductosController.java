@@ -74,16 +74,16 @@ public class ProductosController implements Initializable {
         // Configuramos las columnas para que correspondan a una propiedad de la clase Producto
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idProducto"));
         nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        descripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+//        descripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         precioColumn.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        categoriaColumn.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+//        categoriaColumn.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 
         // TAMAÑOS DE LAS COLUMNAS
         idColumn.setMinWidth(10);
         nombreColumn.setMinWidth(100);
-        descripcionColumn.setMinWidth(200);
+//        descripcionColumn.setMinWidth(200);
         precioColumn.setMinWidth(100);
-        categoriaColumn.setMinWidth(100);
+//        categoriaColumn.setMinWidth(100);
 
         try {
             Connection connection = DB.getConnection();

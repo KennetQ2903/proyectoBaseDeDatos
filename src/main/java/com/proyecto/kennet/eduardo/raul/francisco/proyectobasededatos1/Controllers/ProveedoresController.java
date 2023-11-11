@@ -244,7 +244,7 @@ public class ProveedoresController implements Initializable {
                             result.getInt("usuario_creacion"),
                             result.getInt("usuario_mod"),
                             result.getDate("fecha_creacion").toString(),
-                            result.getDate("fecha_mod").toString(),
+                            result.getString("fecha_mod"),
                             result.getInt("estado")
                     );
                     listaProveedores.add(proveedor);

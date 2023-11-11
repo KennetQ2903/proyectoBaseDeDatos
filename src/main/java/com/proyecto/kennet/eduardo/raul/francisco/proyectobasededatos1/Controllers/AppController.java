@@ -39,6 +39,7 @@ public class AppController {
             AnchorPane scene = getScene("Productos");
             scenesContainer.getChildren().setAll(scene);
         } catch (Exception e) {
+            e.printStackTrace();
             // Manejo de errores si no se puede cargar "Productos.fxml"
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

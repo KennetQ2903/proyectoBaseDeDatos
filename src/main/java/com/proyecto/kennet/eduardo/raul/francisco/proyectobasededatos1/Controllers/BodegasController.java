@@ -83,7 +83,7 @@ public class BodegasController implements Initializable {
         Estado state0 = new Estado("DESHABILITADO", 0);
         estadoList.add(state1);
         estadoList.add(state0);
-        state.setItems(estadoList);
+//        state.setItems(estadoList);
     }
     private void setDepartamentos() {
         try {
@@ -194,7 +194,7 @@ public class BodegasController implements Initializable {
                             result.getString("codigo_postal"),
                             result.getString("telefono"),
                             result.getInt("usuario_mod"),
-                            result.getDate("fecha_mod").toString()
+                            result.getString("fecha_mod")
                     );
                     listaBodegas.add(bodega);
                 }

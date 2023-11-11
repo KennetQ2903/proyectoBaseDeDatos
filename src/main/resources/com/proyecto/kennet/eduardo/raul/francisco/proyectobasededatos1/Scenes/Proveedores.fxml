@@ -31,8 +31,8 @@
                         <TextField fx:id="telefono" promptText="Telefono" />
                         <TextField fx:id="nit" promptText="NIT" />
                         <TextField fx:id="dpi" promptText="DPI" />
-                  <TextField fx:id="email" promptText="Correo Electronico" />
-                  <ComboBox fx:id="state" prefHeight="25.0" prefWidth="585.0" promptText="Seleccione un estado" />
+                        <TextField fx:id="email" promptText="Correo Electronico" />
+                        <ComboBox fx:id="state" prefHeight="25.0" prefWidth="585.0" promptText="Seleccione un estado" />
                         <HBox prefHeight="21.0" prefWidth="585.0" spacing="15.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#clearAllFields" prefHeight="25.0" prefWidth="510.0" text="Limpiar Campos" />
@@ -65,8 +65,8 @@
                                 <TableColumn fx:id="nitColumn" prefWidth="75.0" text="NIT" />
                                 <TableColumn fx:id="dpiColumn" prefWidth="75.0" text="DPI" />
                                 <TableColumn fx:id="stateColumn" prefWidth="75.0" text="ESTADO" />
-                        <TableColumn fx:id="fechaCreaColumn" prefWidth="75.0" text="FECHA_CREA" />
-                        <TableColumn fx:id="fechaModColumn" prefWidth="75.0" text="FECHA_MOD" />
+                                <TableColumn fx:id="fechaCreaColumn" prefWidth="75.0" text="FECHA_CREA" />
+                                <TableColumn fx:id="fechaModColumn" prefWidth="75.0" text="FECHA_MOD" />
                             </columns></TableView>
                     </children>
                 </VBox>
